@@ -3,8 +3,10 @@ import time
 from django.core.handlers.wsgi import WSGIRequest
 from django.http import HttpResponse, HttpRequest, JsonResponse
 from django.shortcuts import render
+from django.views.decorators.csrf import csrf_exempt
 from rest_framework import status
-from rest_framework.decorators import api_view
+from rest_framework.decorators import api_view, permission_classes
+from rest_framework.permissions import AllowAny
 from rest_framework.response import Response
 from django_app import models as django_models, serializers as django_serializers
 
@@ -22,11 +24,28 @@ def images(request: WSGIRequest) -> Response:
     return Response(data={"response": images_json}, status=status.HTTP_200_OK)
 
 
+@csrf_exempt
+@permission_classes([AllowAny])
 @api_view(http_method_names=["POST"])
 def images_upload(request: WSGIRequest) -> Response:
+    print("ЛОГИКА")
     time.sleep(1.5)
 
-    return Response(data={"response": "successfully"}, status=status.HTTP_201_CREATED)
+    # return Response(data={"error": "unknown"}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
+    user = None
+    if not request.user.is_anonymous:
+        user = request.user
+
+    django_models.ImageModel.objects.create(
+        author=user,
+        title=request.POST.get("title", None),
+        description=request.POST.get("description", ""),
+        avatar=request.FILES.get("avatar", None),
+        is_view=True,  # False
+    )
+
+    return Response(data={"response": "Запись успешно добавлена!"}, status=status.HTTP_201_CREATED)
 
 # def images(request: HttpRequest) -> JsonResponse:
 #     data = {"name": "Python"}

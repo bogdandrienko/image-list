@@ -30,7 +30,7 @@ class ImageModel(models.Model):
         unique=False,
         editable=True,
         blank=True,
-        null=True,
+        null=False,
         default='',
         verbose_name='Заголовок',
         help_text='<small class="text-muted">Заголовок [5, 300]</small><hr><br>',
@@ -49,15 +49,6 @@ class ImageModel(models.Model):
 
         max_length=1000,
     )
-    is_view = models.BooleanField(
-        unique=False,
-        editable=True,
-        blank=True,
-        null=False,
-        default=False,
-        verbose_name='Статус видимости',
-        help_text='<small class="text-muted">Статус видимости</small><hr><br>',
-    )
     avatar = models.FileField(
         validators=[FileExtensionValidator(['jpg', 'jpeg', 'bmp', 'png'])],
         unique=False,
@@ -70,6 +61,15 @@ class ImageModel(models.Model):
 
         upload_to='django_app/images/',
         max_length=200,
+    )
+    is_view = models.BooleanField(
+        unique=False,
+        editable=True,
+        blank=True,
+        null=False,
+        default=False,
+        verbose_name='Статус видимости',
+        help_text='<small class="text-muted">Статус видимости</small><hr><br>',
     )
     created = models.DateTimeField(
         db_index=True,

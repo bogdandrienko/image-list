@@ -18,4 +18,7 @@ class ImageModelSerializer(serializers.ModelSerializer):
 
     def get_author(self, obj):
         # return UserSerializer(instance=obj.author, many=False).data
-        return {"username": obj.author.username}
+        username = "unknown"
+        if obj.author is not None:
+            username = obj.author.username
+        return {"username": username}

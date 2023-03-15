@@ -5,6 +5,7 @@ import { store } from "./components/store";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Home from "./pages/Home";
 import "./css/index.css";
+import "./css/bootstrap_5_3/bootstrap.css";
 
 createRoot(document.getElementById("root")!).render(
   <Provider store={store}>

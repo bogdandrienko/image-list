@@ -27,10 +27,36 @@ export function ImagesListReducer(
   }
 }
 
+export function ImageUploadReducer(
+  state = {},
+  action: { type: string; payload: any }
+) {
+  switch (action.type) {
+    case "LOAD_IMAGE_UPLOAD": {
+      return { load: true, data: undefined, error: undefined };
+    }
+    case "DATA_IMAGE_UPLOAD": {
+      return { load: false, data: action.payload, error: undefined };
+    }
+    case "ERROR_IMAGE_UPLOAD": {
+      return { load: false, data: action.payload, error: "Произошла ошибка" };
+    }
+    case "FAIL_IMAGE_UPLOAD": {
+      return { load: false, data: action.payload, error: "Произошла ошибка" };
+    }
+    case "RESET_IMAGE_UPLOAD": {
+      return { load: false, data: action.payload, error: "Произошла ошибка" };
+    }
+    default: {
+      return state;
+    }
+  }
+}
+
 const globalReducers = combineReducers({
   images: ImagesListReducer,
   // image: ImagesListReducer,
-  // image_upload: ImagesListReducer,
+  image_upload: ImageUploadReducer,
 });
 
 const preloadedState = {
