@@ -24,14 +24,11 @@ def images(request: WSGIRequest) -> Response:
     return Response(data={"response": images_json}, status=status.HTTP_200_OK)
 
 
-@csrf_exempt
-@permission_classes([AllowAny])
+# @csrf_exempt
+# @permission_classes([AllowAny])
 @api_view(http_method_names=["POST"])
 def images_upload(request: WSGIRequest) -> Response:
-    print("ЛОГИКА")
     time.sleep(1.5)
-
-    # return Response(data={"error": "unknown"}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
     user = None
     if not request.user.is_anonymous:
@@ -47,6 +44,13 @@ def images_upload(request: WSGIRequest) -> Response:
 
     return Response(data={"response": "Запись успешно добавлена!"}, status=status.HTTP_201_CREATED)
 
+
 # def images(request: HttpRequest) -> JsonResponse:
 #     data = {"name": "Python"}
 #     return JsonResponse(data=data, status=200, safe=False)
+
+@api_view(http_method_names=["GET"])
+def data(request):
+    time.sleep(1.5)
+    datas = [{"name": f"Python {i}"} for i in range(1, 100)]
+    return Response(data={"response": datas}, status=status.HTTP_200_OK)
