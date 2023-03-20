@@ -46,7 +46,7 @@ export default function Page() {
 
   // todo Обычная функция
   async function getData() {
-    await actions.getImages(`images/?page=2&filter=new`, "GET", dispatch);
+    // await actions.getImages(`images/?page=2&filter=new`, "GET", dispatch);
   }
 
   // TODO ПЕРЕМЕННЫЕ ///////////////////////////////////////////////////////////////////////////////////////////////////
