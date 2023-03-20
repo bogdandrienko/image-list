@@ -30,6 +30,11 @@ def images(request: WSGIRequest) -> Response:
 from django.views.decorators.csrf import csrf_exempt
 
 
+def routes(request):
+    return Response(data={
+        "api/images": {"methods": "sfaf"}
+    })
+
 @csrf_exempt
 @permission_classes([AllowAny])
 @api_view(http_method_names=["POST"])
